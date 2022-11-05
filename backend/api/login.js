@@ -11,14 +11,14 @@ login.signIn = async (req, res) => {
     try {
         const user = await db.calls.find(collection, {$or: [{username: req.body.email}, {email: req.body.email}]})
         if (user.length < 1) {
-            res.status(404).json({error: "User Not Found"})
+            res.json({code:404, error: "User Not Found"})
         }
         const match = await utils.bcrypt.comparePassword(req.body.password, user[0].password)
         if (!match) {
-            res.status(403).json({error: "Password Mismatch"})
+            res.json({code:403, error: "Password Mismatch"})
         }
         const sign = jwt.sign({username: user[0].username}, process.env.TOKEN_SECRET)
-        res.status(200).json(sign)
+        res.json({code:200, token: sign})
     } catch (e) {
         console.log(e)
     }

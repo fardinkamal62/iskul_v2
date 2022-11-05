@@ -19,7 +19,13 @@ const submitForm = async (e) => {
         email: $("#email")[0].value,
         password: $("#password")[0].value
     })
-    bake_cookie('jwt', response)
+    if (response.code !== 200) {
+        alert('Wrong Credentials')
+        return
+    }
+    bake_cookie('jwt', response.token)
+    window.location.href = "http://127.0.0.1:3000/home";
+    return
 }
 
 const Login = () => {

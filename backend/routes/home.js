@@ -2,7 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const api = require('../api')
+const auth = require('../middlewares/auth')
 
-router.route('/').get(api.home.home)
+router.use(auth.authenticate)
+
+router.route('/').get(api.home.index)
 
 module.exports = router;
