@@ -1,0 +1,13 @@
+POST http://127.0.0.1:4567/login
+Content-Type: application/json
+
+{
+  "email": "fardinkamal61@gmail.com",
+  "password": "fardin"
+}
+
+###
+GET http://127.0.0.1:4567/home
+authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZhcmRpbmthbWFsNjEiLCJpYXQiOjE2Njc1NjU1MTR9.ZZXrawii2fgYKnEU0Gv7BVAPyvXfwC01naB1YjA8iJ4'
+
+###
