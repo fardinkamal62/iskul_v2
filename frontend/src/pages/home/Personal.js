@@ -1,15 +1,15 @@
 const style = {
     "width": '15%', "height": 'auto', "margin": "0 45 0"
 }
-const Personal = ({data}) => {
-    const userInfo = data.data
-    console.log(data)
+
+const Personal = (props) => {
+    const userInfo = props.data.data
     return (
         <>
             <div className='h1 text-center'>Personal Information</div>
             <hr/>
             <img src="https://avatars.githubusercontent.com/u/70953546?v=4"
-                 className="img-fluid d-sm-block d-none rounded-circle" alt="user"
+                 className="img-fluid d-sm-block d-none rounded-circle mx-auto" alt="user"
                  style={style}/>
             <div>
                 <ul>

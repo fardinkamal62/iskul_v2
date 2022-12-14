@@ -20,7 +20,7 @@ const Navbar = () => {
         <navbar id="navbar" className="navbar navbar-expand-md navbar-dark p-2 navbar-static-top"
                 style={{background: "#003ab0"}}>
             <div className="container">
-                <Link to="/home">
+                <Link to="/">
                     <img className="navbar-brand img-fluid d-sm-block d-none rounded-circle float-start"
                          src="https://play-lh.googleusercontent.com/n5DHD7aLjABMNZ7i4to3rLQwAQZrfl_0EitbyRUygUvADCKVkyE1KqiqOkAaBnBzOjY=w240-h480"
                          style={imageStyle} alt='DIU Logo'/></Link>

@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react";
-import { read_cookie } from "sfcookies";
+import {useState, useMemo} from "react";
+import {read_cookie} from "sfcookies";
 
 import * as axios from "../utils/Axios";
 
@@ -10,48 +10,72 @@ import Personal from "../pages/home/Personal";
 import Class from "../pages/home/Class";
 
 const Home = () => {
-  const auth = async (link) => {
-    const cookie = read_cookie("jwt");
-    const config = { headers: { authorization: `Bearer ${cookie}` } };
-    const response = await axios.get(`/home?section=${link}`, config);
-    if (response.code !== 200) {
-      window.location.href = "http://127.0.0.1:3000/login";
-    }
-    return response;
-  };
-  const switchView = (path, res) => {
-    switch (path) {
-      case "personal":
-        return <Personal data={res} />;
-      case "class":
-        return <Class data={res} />;
-      default:
-        return <Personal data={res} />;
-    }
-  };
-  const [id, setId] = useState("");
-  const res = {};
+    let loaded = false;
+    const [res, setRes] = useState({})
+    const [id, setId] = useState('')
 
-  const page = async (e) => {
-    setId(e.target.id);
-    res.authentication = await auth(id);
-  };
-  useMemo(() => {
-    const run = async () => {
-      await page({ target: { id: "personal" } });
+    const changeRes = (val) => {
+        setRes({})
+        setRes(res => ({...res, ...val}));
+    }
+
+    const auth = async (link) => {
+        const cookie = read_cookie("jwt");
+        const config = {headers: {authorization: `Bearer ${cookie}`}};
+        const response = await axios.get(`/home?section=${link}`, config);
+        if (response.code !== 200) {
+            window.location.href = "http://127.0.0.1:3000/login";
+        }
+        return response;
     };
-    run();
-  }, []);
 
-  return (
-    <>
-      <Navbar />
-      <Sidebar page={page} />
-      <div className="container my-5 shadow p-3 rounded-3">
-        {switchView(id, res)}
-      </div>
-    </>
-  );
+    useMemo(() => {
+        loaded = true;
+    }, [res])
+
+    // for switching page
+    const switchView = (id, res) => {
+        switch (id) {
+            case "personal":
+                return <Personal data={res}/>;
+            case "class":
+                return <Class data={res}/>;
+            default:
+                return <Personal data={res}/>
+        }
+    };
+
+    // function to change page
+    const page = async (e) => {
+        let targetId = e.target.id;
+        setId(targetId);
+    };
+
+    // on id change to fetch response of that section
+    useMemo(() => {
+        loaded = false;
+        (async () => {
+            let response = await auth(id);
+            changeRes(response);
+        })()
+        return () => null
+    }, [id])
+
+    // on start
+    useMemo(() => {
+        setId('personal');
+    }, []);
+
+    return (
+        <>
+            <Navbar/>
+            <Sidebar page={page}/>
+            <div className="container my-5 card p-3 rounded-3">
+                {!loaded && <div className='h3 text-center'>Loading...</div>}
+                {(loaded) && switchView(id, res)}
+            </div>
+        </>
+    );
 };
 
 export default Home;
