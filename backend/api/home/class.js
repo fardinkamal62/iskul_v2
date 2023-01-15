@@ -1,5 +1,11 @@
 const classInfo = module.exports
 
-classInfo.get = ((req,res)=>{
-    res.json({data:req.query.section, code:200})
+const sub = require('./class/index')
+
+const section = {
+    schedule: sub.schedule.get,
+}
+
+classInfo.get = ((req, res) => {
+    section[req.query.section](req, res)
 })

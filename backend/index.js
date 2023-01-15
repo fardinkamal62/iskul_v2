@@ -7,6 +7,7 @@ require('dotenv').config({path: __dirname + '/./../.env'});
 
 const routes = require('./routes/index')
 const homeRoutes = require('./routes/home')
+const profileRoutes = require('./routes/profile')
 
 const app = express()
 
@@ -19,6 +20,7 @@ app.use(cookie())
 
 app.use('/', routes)
 app.use('/home', homeRoutes)
+app.use('/profile', profileRoutes)
 
 const PORT = process.env.PORT
 app.listen(PORT, (error) => {

@@ -1,5 +1,4 @@
 import {useState, useMemo} from "react";
-import {read_cookie} from "sfcookies";
 
 import * as axios from "../utils/Axios";
 
@@ -8,9 +7,10 @@ import Sidebar from "../pages/component/Sidebar";
 
 import Personal from "../pages/home/Personal";
 import Class from "../pages/home/Class";
+import EditProfile from "./home/Personal/EditProfile";
 
 const Home = () => {
-    let loaded = false;
+    const [loaded, setLoaded] = useState(false);
     const [res, setRes] = useState({})
     const [id, setId] = useState('')
 
@@ -20,9 +20,7 @@ const Home = () => {
     }
 
     const auth = async (link) => {
-        const cookie = read_cookie("jwt");
-        const config = {headers: {authorization: `Bearer ${cookie}`}};
-        const response = await axios.get(`/home?section=${link}`, config);
+        const response = await axios.get(`/home?section=${link}`);
         if (response.code !== 200) {
             window.location.href = "http://127.0.0.1:3000/login";
         }
@@ -30,16 +28,18 @@ const Home = () => {
     };
 
     useMemo(() => {
-        loaded = true;
+        setLoaded(true);
     }, [res])
 
     // for switching page
     const switchView = (id, res) => {
         switch (id) {
             case "personal":
-                return <Personal data={res}/>;
+                return <Personal data={res} page={page}/>;
             case "class":
-                return <Class data={res}/>;
+                return <Class data={res} />;
+            case "editProfile":
+                return <EditProfile data={res} page={page}/>
             default:
                 return <Personal data={res}/>
         }
@@ -53,7 +53,7 @@ const Home = () => {
 
     // on id change to fetch response of that section
     useMemo(() => {
-        loaded = false;
+        setLoaded(false);
         (async () => {
             let response = await auth(id);
             changeRes(response);
@@ -71,8 +71,7 @@ const Home = () => {
             <Navbar/>
             <Sidebar page={page}/>
             <div className="container my-5 card p-3 rounded-3">
-                {!loaded && <div className='h3 text-center'>Loading...</div>}
-                {(loaded) && switchView(id, res)}
+                {(loaded) ? switchView(id, res) : <div className='h3 text-center'>Loading...</div>}
             </div>
         </>
     );

@@ -16,6 +16,7 @@ calls.listDB = async () => {
 calls.find = async (collection, query, limit, page) => {
     await client.connect()
     const response = await client.db(db).collection(collection).find(query).limit(parseInt(limit)).skip(parseInt(limit) * parseInt(page)).toArray()
+    delete response[0]['password']
     return response
 }
 
@@ -23,4 +24,10 @@ calls.insert = async (collection, data) => {
     await client.connect()
     const response = await client.db(db).collection(collection).insertOne(data)
     return response
+}
+
+calls.update = async (collection, query, newData) => {
+    await client.connect()
+    const response = await client.db(db).collection(collection).updateOne(query, {$set: newData})
+    return response.acknowledged
 }

@@ -61,9 +61,9 @@ const Registration = () => {
             <Navbar/>
             <div className='container m-5' id='step-1'>
                 <form>
-                    <div className='mb-3'>
-                        <label htmlFor="exampleInputEmail1" className="form-label">Registration Number</label>
-                        <input type="text" className="form-control" id="reg"/>
+                    <div className='mb-3 form-floating'>
+                        <input type="text" className="form-control" id="reg" placeholder='EN-D-123310'/>
+                        <label htmlFor="reg" className="form-label">Registration Number</label>
                     </div>
                     <Buttons text='Submit' onClick={e => submitForm(e)}/>
                 </form>
