@@ -9,7 +9,7 @@ const collection = db.collection.list.USERS
 
 login.signIn = async (req, res) => {
     try {
-        const user = await db.calls.find(collection, {$or: [{username: req.body.email}, {email: req.body.email}]})
+        const user = await db.calls.login(collection, {$or: [{username: req.body.email}, {email: req.body.email}]})
         if (user.length < 1) {
             res.json({code:404, error: "User Not Found"})
         }
