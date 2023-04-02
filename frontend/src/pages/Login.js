@@ -12,7 +12,6 @@ import * as AxiosUtils from "../utils/Axios";
 const submitForm = async (e) => {
     e.preventDefault()
     if ($('#email')[0].value === "" || $('#password')[0].value === "") {
-        console.log('Input both email & password')
         return
     }
     let response = await AxiosUtils.post('/login', {

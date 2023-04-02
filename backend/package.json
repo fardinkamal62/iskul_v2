@@ -1,11 +1,11 @@
 {
-  "name": "diu-portal-backend",
+  "name": "iskul-2",
   "version": "1.0.0",
-  "description": "BackEnd for DIU Student Portal",
+  "description": "BackEnd for Iskulv2",
   "main": "index.js",
   "scripts": {
-    "run": "node index.js",
-    "nodemon": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [
     "backend",

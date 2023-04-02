@@ -3,8 +3,8 @@ import React from 'react';
 const Schedule = ({data}) => {
     return (
         <div>
-            <table className="table text-center">
-                <thead className='table-active'>
+            <table className="table text-center table-borderless">
+                <thead>
                 <tr>
                     <th scope="col"></th>
                     <th scope="col">09:00-10:30</th>
@@ -15,14 +15,17 @@ const Schedule = ({data}) => {
                 </tr>
                 </thead>
                 <tbody>
-                    {data.schedule.map((d) => {
-                        return <tr> {d.map((e, index) => {
-                            if (index === 0) return <th scope="row" className='table-active'>{e}</th>
-                            if (e === 'Interval') return <td className='table-primary'>{e}</td>
-                            if (e === 'No Class') return <td className='table-danger'>{e}</td>
-                            return <td>{e}</td>
-                        })}</tr>
-                    })}
+                {data.schedule.map((d) => {
+                    return <tr> {d.map((e, index) => {
+                        if (index === 0) {
+                            if (d[index + 1] === 'No Class') return <th scope='row' className='table-danger'>{e}</th>
+                            else return <th scope="row">{e}</th>
+                        }
+                        if (e === 'Interval') return <td className='table-primary'>{e}</td>
+                        if (e === 'No Class') return <td className='table-danger'>{e}</td>
+                        return <td>{e}</td>
+                    })}</tr>
+                })}
                 </tbody>
             </table>
         </div>

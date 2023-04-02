@@ -14,7 +14,6 @@ const Registration = () => {
     const submitForm = (e) => {
         e.preventDefault()
         if ($('#reg')[0].value === "") {
-            console.log('Invalid')
             return
         }
         $('#reg').prop("disabled", true);
@@ -22,7 +21,6 @@ const Registration = () => {
             reg: $("#reg")[0].value,
         }).then((res) => {
             let data = res.data[0]
-            console.log(res)
             $('#step-1').prop("hidden", true);
             $("#step-2").prop("hidden", false);
             changeName(data.name)

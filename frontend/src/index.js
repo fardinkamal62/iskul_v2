@@ -8,7 +8,7 @@ import NotFound from './pages/404'
 import Login from './pages/Login'
 import Registration from "./pages/Registration";
 import Home from "./pages/Home";
-import Profile from './pages/Profile';
+import Profile from './pages/Profile'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,8 +19,8 @@ root.render(
                 <Route path='/registration' element={<Registration/>}/>
                 <Route path='/login' element={<Login/>}/>
                 <Route path='/home' element={<Home/>}/>
-                <Route path='*' element={<NotFound/>}/>
                 <Route path='/profile/:id' element={<Profile/>}/>
+                <Route path='*' element={<NotFound/>}/>
             </Routes>
         </BrowserRouter>
     </React.StrictMode>

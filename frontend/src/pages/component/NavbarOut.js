@@ -12,10 +12,7 @@ const Navbar = () => {
         <navbar id="navbar" className="navbar navbar-expand-md navbar-dark p-2 sticky-top"
                 style={{background: "#003ab0"}}>
             <div className="container">
-                <Link to="/">
-                    <img className="navbar-brand img-fluid d-sm-block d-none rounded-circle float-start"
-                         src="https://play-lh.googleusercontent.com/n5DHD7aLjABMNZ7i4to3rLQwAQZrfl_0EitbyRUygUvADCKVkyE1KqiqOkAaBnBzOjY=w240-h480"
-                         style={imageStyle} alt='DIU Logo'/></Link>
+                <Link to="/" className='navbar-brand'><p style={{fontSize: 40, color: 'white', textDecoration: 'auto'}}>Iskul v2</p></Link>
                 <button className="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbutton"
                         aria-expanded="false">
